@@ -1,0 +1,76 @@
+keyfield: &template
+  type: string
+  default: Unknown
+description: >
+  Go through 
+parameters:
+  projname:
+    type: string
+    description: "Name of the project*"
+  dirname:
+    type: string
+    description: "Deployment directory"
+  minimize:
+    type: boolean
+    default: false
+    description: "Should build be minified?"
+  keypath:
+    type: string
+    default: ~/key.jks
+    description: Storage spot for the keystore
+  apppath:
+    type: string
+    default: /home/developer
+    description: Path to the app directory
+  completename:
+    <<: *template
+    description: Developer name for app key registration
+  orgunit:
+    <<: *template
+    description: Name of organizational unit
+  orgname:
+    <<: *template
+    description: Name of organization
+  locality:
+    <<: *template
+    description: City or locality of organization
+  state:
+    <<: *template
+    description: State or province of organization
+  countrycode:
+    <<: *template
+    description: Country code for organization
+  pass:
+    type: string
+    default: none
+    description: password for registration key storage
+  verbose:
+    type: boolean
+    default: false
+    description: toggles verbosity in key generation
+  appname:
+    <<: *template
+    description: Name of your application!
+  internet:
+    type: boolean
+    default: false
+    description: Does the application require internet access?
+steps:
+  - obfuscate:
+      minimize: <<parameters.minimize>>
+      projname: <<parameters.projname>>
+      dirname: <<parameters.dirname>>
+  - appsign:
+      completename: <<parameters.completename>>
+      orgunit: <<parameters.orgunit>>
+      orgname: <<parameters.orgname>>
+      locality: <<parameters.locality>>
+      state: <<parameters.state>>
+      countrycode: <<parameters.countrycode>>
+      pass: <<parameters.pass>>
+      keypath: <<parameters.keypath>>
+      apppath: <<parameters.apppath>>
+      verbose: <<parameters.verbose>>
+  - manifest_review:
+      appname: <<parameters.appname>>
+      internet: <<parameters.internet>>

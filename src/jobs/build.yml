@@ -1,0 +1,15 @@
+description: >
+  Build Flutter application for further jobs
+executor: default
+steps:
+  - checkout:
+  - restore_cache:
+    keys:
+      - deps_{{ checksum "pubspec.lock" }}
+      - deps_
+  - run:
+      name: Install Dependencies
+      command: flutter pub get
+  - run:
+      name: Build Flutter application
+      command: flutter build

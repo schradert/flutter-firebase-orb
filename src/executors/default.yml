@@ -1,11 +1,10 @@
 description: >
-  This is a sample executor using Docker and Node.
+  Retrieve pre-calibrated Docker image as primary code executor
 docker:
-  - image: 'cimg/node:<<parameters.tag>>'
+  - image: 'schradert/flutter-firebase-alpine:<<parameters.tag>>'
 parameters:
   tag:
-    default: lts
+    default: latest
     description: >
-      Pick a specific circleci/node image variant:
-      https://hub.docker.com/r/cimg/node/tags
+      Pick a specific image variant @ https://hub.docker.com/repository/docker/tristanschrader/flutter-firebase-alpine
     type: string
